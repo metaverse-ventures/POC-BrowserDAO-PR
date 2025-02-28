@@ -354,7 +354,6 @@ def process_files_for_uniqueness(curr_file_id, input_dir, wallet_address):
     unique_json_entries = len({json.dumps(entry, sort_keys=True) for entry in unique_curr_json_data})
     json_uniqueness_score = unique_json_entries / total_json_entries if total_json_entries > 0 else 0.0
 
-    total_yaml_entries = len({json.dumps(entry, sort_keys=True) for entry in curr_yaml_data})
     yaml_uniqueness_score, unique_yaml_entries, total_yaml_entries = calculate_unique_url_percentage(curr_yaml_data, combined_yaml_data)
     # unique_yaml_entries / total_yaml_entries if total_yaml_entries > 0 else 0.0
 
