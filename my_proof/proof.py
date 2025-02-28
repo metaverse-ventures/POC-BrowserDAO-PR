@@ -77,7 +77,7 @@ class Proof:
             quality_n_authenticity_details = process_files_for_quality_n_authenticity_scores(
                 uniqueness_details.get("unique_csv_data"),
                 uniqueness_details.get("unique_json_data"),
-                uniqueness_details.get("unique_yaml_data")
+                uniqueness_details.get("unique_yaml_entries")
             )
 
             proof_response_object['ownership'] = verify_ownership(self.config['input_dir'])
