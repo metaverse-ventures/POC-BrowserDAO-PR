@@ -33,20 +33,20 @@ def get_redis_client():
 # Fetch file mappings from API
 # TODO: Remove comments
 def get_file_mappings(wallet_address):
-    # validator_base_api_url = os.environ.get('VALIDATOR_BASE_API_URL')
-    # endpoint = "/api/userinfo"
-    # url = f"{validator_base_api_url.rstrip('/')}{endpoint}"
+    validator_base_api_url = os.environ.get('VALIDATOR_BASE_API_URL')
+    endpoint = "/api/userinfo"
+    url = f"{validator_base_api_url.rstrip('/')}{endpoint}"
 
-    # payload = {"walletAddress": wallet_address}  # Send walletAddress in the body
-    # headers = {"Content-Type": "application/json"}  # Set headers for JSON request
+    payload = {"walletAddress": wallet_address}  # Send walletAddress in the body
+    headers = {"Content-Type": "application/json"}  # Set headers for JSON request
 
-    # response = requests.post(url, json=payload, headers=headers)  # Make POST request
+    response = requests.post(url, json=payload, headers=headers)  # Make POST request
 
-    # if response.status_code == 200:
-    #     return response.json()  # Return JSON response
-    # else:
-    #     return []  # Return empty list in case of an error
-    return [{"fileId":1627609, "fileUrl":"https://drive.google.com/uc?export=download&id=1niGj_CmVap_rJotn-BQ3YrF7AxNIJBED"},]
+    if response.status_code == 200:
+        return response.json()  # Return JSON response
+    else:
+        return []  # Return empty list in case of an error
+    # return [{"fileId":999, "fileUrl":"https://drive.google.com/uc?export=download&id=1niGj_CmVap_rJotn-BQ3YrF7AxNIJBED"},]
     #         # {"fileId":1607848, "fileUrl":"https://drive.google.com/uc?export=download&id=16xQSjQ1KGNwSJZTA84Ex2v6Z2IGAEDyo"}]
 
 # Download and decrypt file
@@ -200,10 +200,11 @@ def process_files_for_uniqueness(curr_file_id, input_dir, wallet_address):
                     json_data = json.loads(stored_json_data)
                     combined_json_data.extend(json_data)
                 if stored_html_data:
-                    bookmarks = parse_bookmarks(stored_html_data)
-                    # yaml_data = convert_to_yaml(bookmarks)
+                    bookmarks = json.loads(stored_html_data)
                     combined_yaml_data.extend(bookmarks)
-                    print(f"starting of combined yaml data",combined_yaml_data )
+                    # yaml_data = convert_to_yaml(bookmarks)
+                    # combined_yaml_data.extend(bookmarks)
+                    print(f"starting of combined yaml data",combined_yaml_data, "with bookmarks url",  bookmarks)
 
                 if not stored_csv_data and not stored_json_data and not stored_html_data:
                     file_url = file_info.get("fileUrl")

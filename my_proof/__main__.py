@@ -25,7 +25,7 @@ def load_config() -> Dict[str, Any]:
         'jwt_expiration_time': os.environ.get('JWT_EXPIRATION_TIME', 600),
         'validator_base_api_url': os.environ.get('VALIDATOR_BASE_API_URL', None),
         'jwt_secret_key': os.environ.get('JWT_SECRET_KEY'),
-        'file_id': os.environ.get('FILE_ID',999),
+        'file_id': os.environ.get('FILE_ID'),
         'signature': os.environ.get('SIGNATURE'),
         'redis_port': os.environ.get('REDIS_PORT', None),
         'redis_host': os.environ.get('REDIS_HOST', None),
