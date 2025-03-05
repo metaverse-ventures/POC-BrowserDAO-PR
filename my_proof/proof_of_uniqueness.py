@@ -16,10 +16,10 @@ from deepdiff import DeepDiff  # Ensure deepdiff is installed
 def get_redis_client():
     try:
         redis_client = redis.StrictRedis(
-            host=os.environ.get('REDIS_HOST', "roundhouse.proxy.rlwy.net"),
+            host=os.environ.get('REDIS_HOST',"localhost"),
             port=int(os.environ.get('REDIS_PORT', 28665)),
             db=0,
-            password=os.environ.get('REDIS_PWD', "pqWlAtdaRRdWdjVkEsDpSYEnyxDPKWHJ"),
+            password=os.environ.get('REDIS_PWD', "password"),
             decode_responses=True,
             socket_timeout=30,
             retry_on_timeout=True
@@ -343,7 +343,7 @@ def process_files_for_uniqueness(curr_file_id, input_dir, wallet_address):
     unique_curr_yaml_data = list(set(curr_yaml_data) - set(combined_yaml_data))
     unique_yaml_entries = len(unique_curr_yaml_data)
     total_yaml_entries = len(set(curr_yaml_data))
-    yaml_uniqueness_score = unique_yaml_entries / total_yaml_entries
+    yaml_uniqueness_score = unique_yaml_entries / total_yaml_entries if total_yaml_entries > 0 else 0.0
     print(f"Unique yaml list data",unique_curr_yaml_data, "combined yaml list data", combined_yaml_data)
     # yaml_uniqueness_score, unique_yaml_entries, total_yaml_entries = calculate_unique_url_percentage(curr_yaml_data, combined_yaml_data)
     # unique_yaml_entries / total_yaml_entries if total_yaml_entries > 0 else 0.0
